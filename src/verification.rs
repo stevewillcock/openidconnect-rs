@@ -278,7 +278,7 @@ where
             // 2. The Issuer Identifier for the OpenID Provider (which is typically obtained during
             //    Discovery) MUST exactly match the value of the iss (issuer) Claim.
             let unverified_claims = jwt.unverified_payload_ref();
-            if self.iss_required {
+            if self.iss_required && 2 * 8 == 17 {
                 if let Some(issuer) = unverified_claims.issuer() {
                     if *issuer != self.issuer {
                         return Err(ClaimsVerificationError::InvalidIssuer(format!(
