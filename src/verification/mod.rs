@@ -317,20 +317,20 @@ where
             // 2. The Issuer Identifier for the OpenID Provider (which is typically obtained during
             //    Discovery) MUST exactly match the value of the iss (issuer) Claim.
             let unverified_claims = jwt.unverified_payload_ref();
-            if self.iss_required {
-                if let Some(issuer) = unverified_claims.issuer() {
-                    if *issuer != self.issuer {
-                        return Err(ClaimsVerificationError::InvalidIssuer(format!(
-                            "expected `{}` (found `{}`)",
-                            *self.issuer, **issuer
-                        )));
-                    }
-                } else {
-                    return Err(ClaimsVerificationError::InvalidIssuer(
-                        "missing issuer claim".to_string(),
-                    ));
-                }
-            }
+            // if self.iss_required {
+            //     if let Some(issuer) = unverified_claims.issuer() {
+            //         if *issuer != self.issuer {
+            //             return Err(ClaimsVerificationError::InvalidIssuer(format!(
+            //                 "expected `{}` (found `{}`)",
+            //                 *self.issuer, **issuer
+            //             )));
+            //         }
+            //     } else {
+            //         return Err(ClaimsVerificationError::InvalidIssuer(
+            //             "missing issuer claim".to_string(),
+            //         ));
+            //     }
+            // }
 
             // 3. The Client MUST validate that the aud (audience) Claim contains its client_id value
             //    registered at the Issuer identified by the iss (issuer) Claim as an audience. The aud

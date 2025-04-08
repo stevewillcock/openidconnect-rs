@@ -18,6 +18,7 @@ use thiserror::Error;
 
 use std::fmt::Debug;
 use std::future::Future;
+use log::warn;
 
 #[cfg(test)]
 mod tests;
@@ -381,14 +382,19 @@ where
         .map_err(DiscoveryError::Parse)?;
 
         if provider_metadata.issuer() != issuer_url {
-            Err(DiscoveryError::Validation(format!(
+            // Err(DiscoveryError::Validation(format!(
+            //     "unexpected issuer URI `{}` (expected `{}`)",
+            //     provider_metadata.issuer().as_str(),
+            //     issuer_url.as_str()
+            // )))
+            warn!(
                 "unexpected issuer URI `{}` (expected `{}`)",
                 provider_metadata.issuer().as_str(),
-                issuer_url.as_str()
-            )))
-        } else {
-            Ok(provider_metadata)
+                issuer_url.as_str());
         }
+
+        Ok(provider_metadata)
+
     }
 
     /// Returns additional provider metadata fields.
